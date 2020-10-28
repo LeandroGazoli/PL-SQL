@@ -6,22 +6,18 @@ create table TALUNO
     CEP VARCHAR (10),
     PRIMARY KEY (COD_ALUNO)
     );
+    
+-- selecinar todos os elementos da tabela ( asteristico serve para indicar que queremos todos os dados da tabela alunos.)    
 SELECT * FROM taluno;
 
-INSERT INTO TALUNO (COD_ALUNO, NOME, CIDADE, CEP)
-VALUES (1, 'MARCIO', 'NOVO HAMBURGO', '93000000');
+--DROP TABLE nome_tabela; --DELETAR TABELA 
 
-INSERT INTO TALUNO (COD_ALUNO, NOME, CIDADE, CEP)
-VALUES (1, 'MARCIO', 'NOVO HAMBURGO', '93000000');
-create table TALUNO
-(
-    COD_ALUNO INTEGER NOT NULL,
-    NOME VARCHAR (30),
-    CIDADE VARCHAR2(30),
-    CEP VARCHAR (10),
-    PRIMARY KEY (COD_ALUNO)
-    );
-SELECT * FROM taluno;
+--Sequence
+-- criar uma sequencia que comece no 1 usando como referencia SEQ_ALUNO para me referir a tabela de alunos
+CREATE SEQUENCE SEQ_ALUNO START WITH 1;
+
+-- SEQ_ALUNO.NEXTVAL = Sequencia do SEQ ALUNO + NEXTVAL (PROXIMO VALOR) OU SEJA 1,2,3,4... RESPECTIVAMENTE
+-- Tipos de insert para adicionar dados na tabela:
 
 INSERT INTO TALUNO (COD_ALUNO, NOME, CIDADE, CEP)
 VALUES (SEQ_ALUNO.NEXTVAL, 'MARCIO', 'NOVO HAMBURGO', '93000000');
@@ -29,12 +25,9 @@ VALUES (SEQ_ALUNO.NEXTVAL, 'MARCIO', 'NOVO HAMBURGO', '93000000');
 INSERT INTO TALUNO(COD_ALUNO,NOME,CIDADE,CEP)
 VALUES  (SEQ_ALUNO.NEXTVAL,'PAULA','IVOTI','93000000');
 
-alter table TALUNO ALTER COLUMN CIDADE VARCHAR2;
-
-DROP TABLE TALUNO;
-
 INSERT INTO TALUNO(COD_ALUNO,NOME,CIDADE,CEP) VALUES  (SEQ_ALUNO.NEXTVAL,'MARIA','SAPIRANGA','93000000');
 
+-- Criando tabela para os cursos
 CREATE TABLE TCURSO
 (  COD_CURSO INTEGER NOT NULL PRIMARY KEY,
    NOME VARCHAR2(30),
@@ -43,6 +36,7 @@ CREATE TABLE TCURSO
 );
 SELECT * FROM TCURSO;
 
+-- inserindo valores na tabela TCURSO sem indicar o nome dos campos (basicamente fazemos que nem uma array)
 INSERT INTO TCURSO VALUES(1,'ORACLE SQL e PL/SQL',500,25);
 INSERT INTO TCURSO VALUES(2,'ORACLE DBA',499,25);
 INSERT INTO TCURSO VALUES(3,'JAVA FUNDAMENTOS E OO',1500,100);
@@ -57,6 +51,8 @@ CREATE TABLE TCONTRATO
 );
 
 SELECT * FROM TCONTRATO;
+
+--sysdate pega a hora atual do servidor
 
 INSERT INTO TCONTRATO VALUES(1, SYSDATE   ,1 ,500,10);
 INSERT INTO TCONTRATO VALUES(2, SYSDATE   ,2 ,500,10);
@@ -113,11 +109,6 @@ SELECT * FROM DUAL;
 --Valor atual da sequence
 SELECT SEQ_ALUNO.CURRVAL FROM DUAL;
 
-
-
-
-
-
 --confirmar alteracoes realizada (insert, update e delete)
 COMMIT;
 
@@ -153,13 +144,12 @@ COMMIT;
 ROLLBACK;
 
 
-
-
 CREATE TABLE TITEM
  ( COD_ITEM INTEGER NOT NULL PRIMARY KEY,
    COD_CURSO INTEGER,
    COD_CONTRATO INTEGER,
    VALOR NUMBER(8,2) );
+   -- valor entre "VALOR NUMBER (8,2)" indica que temos um campo com 8 casas sendo delas 2 para decimais, ou seja temos 6 campos inteiro e 2 decimais somando 8
 
  INSERT INTO TITEM VALUES (1, 1, 1, 500);
  INSERT INTO TITEM VALUES (2, 1, 2, 500);
@@ -173,7 +163,6 @@ CREATE TABLE TITEM
  COMMIT;
 
  SELECT * FROM TITEM;
-
 
 
  SELECT * FROM TCONTRATO
@@ -200,6 +189,7 @@ CREATE TABLE TITEM
    CIDADE = 'CANOAS'
  WHERE Upper(CIDADE) = 'IVOTI';
 
+--Uper deixa as letras maiusculas
 
  UPDATE TALUNO SET
    NOME = 'FRIDA'
@@ -213,4 +203,3 @@ CREATE TABLE TITEM
  WHERE COD_CURSO = 1;
 
  COMMIT;
-
