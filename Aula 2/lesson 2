@@ -3,18 +3,16 @@ SELECT COD_ALUNO, NOME, CIDADE
 FROM TALUNO;
 
 
-
+-- AS altera o nome da coluna
 SELECT COD_ALUNO AS "Código", NOME AS "Nome do Aluno"
 FROM TALUNO;
 
 
---Distinct retira linhas duplicadas
+--Distinct retira linhas duplicadas (verifica todas as taelas e linhas)
 -- todas colunas tem que ser iguais
 SELECT CIDADE FROM TALUNO;
 
-
 SELECT DISTINCT CIDADE FROM TALUNO;
-
 
 --Nao agrupa pois cod_aluno diferente
 --para cada linha
@@ -22,8 +20,11 @@ SELECT DISTINCT CIDADE, COD_ALUNO
 FROM TALUNO
 ORDER BY CIDADE;
 
+SELECT * FROM TALUNO;
 
----
+SELECT DISTINCT COD_ALUNO AS "Matricula", CIDADE FROM taluno ORDER BY cod_aluno; 
+
+-- round arredanda o valor para ",2" duas casas
 SELECT NOME AS CURSO,
        VALOR,
        VALOR/CARGA_HORARIA,
@@ -31,6 +32,7 @@ SELECT NOME AS CURSO,
 FROM TCURSO
 ORDER BY VALOR_HORA;
 --Apelido de coluna só funciona em ORDER BY
+--Possivel fazer calculos matematicos usando (+ - / *)
 
 
 SELECT * FROM TCONTRATO;
@@ -45,20 +47,20 @@ WHERE COD_CONTRATO = 4;
 SELECT COD_CONTRATO,
        TOTAL,
        DESCONTO,
-       TOTAL+DESCONTO
+       TOTAL-DESCONTO AS "VALOR A COBRAR"
 FROM TCONTRATO;
 
 
---
+--Comando Nvl possibilita transformar o valor "NULL" em outro como no exemplo a baixo valor retornado caso for = null é 0
 SELECT COD_CONTRATO,
        DESCONTO,
        Nvl(DESCONTO,0),
        TOTAL,
-       TOTAL + Nvl(DESCONTO,0) AS TOTAL_MAIS_DESCONTO
+       TOTAL - Nvl(DESCONTO,0) AS "Valor a ser cobrado"
 FROM TCONTRATO;
 
 
---
+-- || faz o papel de + porem para juntar texto ou elementos de uma tabela, por exemplo cod_aluno + '-' + nome + '//' cidade
 SELECT COD_ALUNO || ' - ' || NOME || ' // ' || CIDADE AS ALUNO
 FROM TALUNO
 ORDER BY COD_ALUNO;
@@ -73,8 +75,8 @@ ORDER BY COD_ALUNO;
 
    DATE         - '10/03/2011 00:00:00'
 
-   VARCHAR(10)  -- Sinonimo
+   VARCHAR(10)  -- Sinonimo para VARCHAR2
    VARCHAR2(10) - 'MARCIO'
 
+-- CHAR PREENCHE TODOS OS CAMPOS RESTANTE COM ESPAÇO EM BRANCO
    CHAR(10)     - 'MARCIO    '
-
